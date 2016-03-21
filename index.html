@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reminder">
+<head>
+	<meta charset="UTF-8">
+	<title>icloud Reminder</title>
+	<script src="angular.js"></script>
+	<script src="index.js"></script>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body ng-controller="rdCtrl" ng-dblclick="clear()">
+	<div class="zuo">
+		<div class="title">
+			<span>iCloud</span>
+			<span ng-click="addshijian()" ng-dblclick="zz($event)">+</span>
+		</div>
+		<ul>
+			<li ng-repeat="(key, value) in shijianliebiao track by $index" ng-click="showlist($index)" ng-class="{active:clistindex==$index}">
+			<span ng-class="value.color"></span>
+			<input type="text" ng-model="value.name" ng-blur="save()">
+			</li>
+		</ul>
+	</div>
+	<div class="you" ng-class="shijianliebiao[clistindex].color">
+	<div class="sousuo">
+		
+	</div>
+		<!-- <button ng-click="deleteItem()">删除列表</button>
+		<input type="text" ng-model="shijianliebiao[clistindex].name"> -->
+		<div class="title">
+			<h1>{{shijianliebiao[clistindex].name}}</h1>
+			<span>选项</span>
+		</div>
+		<div class="done-item">已经完成:<span>{{shijianliebiao[clistindex].item.length}}</span></div>
+		<ul>
+			<li ng-repeat="value in shijianliebiao[clistindex].item track by $index" ng-show="value.isDone">
+				<span ng-click="value.isDone=false;save()">{{value.isDone}}</span>
+				<input type="text" ng-blur="save()" ng-model="value.title">
+				<button ng-click="deletetodo($index)">删除</button>
+			</li>
+		</ul>
+		<hr>
+		<ul>
+			<li ng-repeat="(key, value) in shijianliebiao[clistindex].item track by $index" ng-hide="value.isDone">
+				<span ng-click="value.isDone=true;save()">{{value.isDone}}</span>
+				<input type="text" ng-blur="save()" ng-model="value.title">
+				<button ng-click="deletetodo($index)">删除</button>
+			</li>
+		</ul>
+		<div class="new-item" ng-click="addtodo()">点击添加新项目</div>
+	</div>
+</body>
+</html>
